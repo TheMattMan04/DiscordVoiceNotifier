@@ -108,6 +108,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
               " " +
               "voice channel" +
               "\n" +
+              "\n" +
               "People currently in: " +
               "'" +
               oldVoiceChannelName +
@@ -135,6 +136,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
               "'" +
               " " +
               "voice channel" +
+              "\n" +
               "\n" +
               "People currently in: " +
               "'" +
