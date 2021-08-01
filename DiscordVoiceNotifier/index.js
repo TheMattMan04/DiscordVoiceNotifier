@@ -114,6 +114,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
               oldVoiceChannelName +
               "'" +
               "\n" +
+              "\n" +
               membersInOldChannel
           );
         }
@@ -142,6 +143,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
               "'" +
               newVoiceChannelName +
               "'" +
+              "\n" +
               "\n" +
               membersInNewChannel
           );
