@@ -1,3 +1,5 @@
+"use strict";
+
 require("dotenv").config();
 const Discord = require("discord.js");
 const VoiceChannel = require("./models/VoiceChannel");
