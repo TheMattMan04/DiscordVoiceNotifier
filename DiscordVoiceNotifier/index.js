@@ -100,26 +100,53 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         if (memberFound !== undefined) {
           if (memberFound.id !== oldMember.id) {
             console.log("Sent notification to: " + member.user.username + "\n");
-            member.send(
-              oldUser +
-                " " +
-                "left " +
-                "'" +
-                oldVoiceChannelName +
-                "'" +
-                " " +
-                "voice channel" +
-                "\n" +
-                "\n" +
-                "People currently in: " +
-                "'" +
-                oldVoiceChannelName +
-                "'" +
-                "\n" +
-                "\n" +
-                membersInOldChannel +
-                "\n"
-            );
+
+            if (membersInOldChannel.length === 0) {
+              member.send(
+                oldUser +
+                  " " +
+                  "left " +
+                  "'" +
+                  oldVoiceChannelName +
+                  "'" +
+                  " " +
+                  "voice channel" +
+                  "\n" +
+                  "\n" +
+                  "People currently in: " +
+                  "'" +
+                  oldVoiceChannelName +
+                  "'" +
+                  "\n" +
+                  "\n" +
+                  "There's no one currently in " +
+                  "'" +
+                  oldVoiceChannelName +
+                  "'" +
+                  "\n"
+              );
+            } else {
+              member.send(
+                oldUser +
+                  " " +
+                  "left " +
+                  "'" +
+                  oldVoiceChannelName +
+                  "'" +
+                  " " +
+                  "voice channel" +
+                  "\n" +
+                  "\n" +
+                  "People currently in: " +
+                  "'" +
+                  oldVoiceChannelName +
+                  "'" +
+                  "\n" +
+                  "\n" +
+                  membersInOldChannel +
+                  "\n"
+              );
+            }
           }
         }
       });
@@ -134,6 +161,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         if (memberFound !== undefined) {
           if (memberFound.id !== newMember.id) {
             console.log("Sent notification to: " + member.user.username + "\n");
+            
             member.send(
               newUser +
                 " " +
