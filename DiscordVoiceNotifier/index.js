@@ -98,25 +98,29 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         );
 
         if (memberFound !== undefined) {
-          member.send(
-            oldUser +
-              " " +
-              "left " +
-              "'" +
-              oldVoiceChannelName +
-              "'" +
-              " " +
-              "voice channel" +
-              "\n" +
-              "\n" +
-              "People currently in: " +
-              "'" +
-              oldVoiceChannelName +
-              "'" +
-              "\n" +
-              "\n" +
-              membersInOldChannel
-          );
+          if (memberFound.id !== oldMember.id) {
+            console.log("Notification to: " + member.user.username + "\n");
+            member.send(
+              oldUser +
+                " " +
+                "left " +
+                "'" +
+                oldVoiceChannelName +
+                "'" +
+                " " +
+                "voice channel" +
+                "\n" +
+                "\n" +
+                "People currently in: " +
+                "'" +
+                oldVoiceChannelName +
+                "'" +
+                "\n" +
+                "\n" +
+                membersInOldChannel +
+                "\n"
+            );
+          }
         }
       });
     });
@@ -128,25 +132,29 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
         );
 
         if (memberFound !== undefined) {
-          member.send(
-            newUser +
-              " " +
-              "joined " +
-              "'" +
-              newVoiceChannelName +
-              "'" +
-              " " +
-              "voice channel" +
-              "\n" +
-              "\n" +
-              "People currently in: " +
-              "'" +
-              newVoiceChannelName +
-              "'" +
-              "\n" +
-              "\n" +
-              membersInNewChannel
-          );
+          if (memberFound.id !== newMember.id) {
+            console.log("Notification to: " + member.user.username + "\n");
+            member.send(
+              newUser +
+                " " +
+                "joined " +
+                "'" +
+                newVoiceChannelName +
+                "'" +
+                " " +
+                "voice channel" +
+                "\n" +
+                "\n" +
+                "People currently in: " +
+                "'" +
+                newVoiceChannelName +
+                "'" +
+                "\n" +
+                "\n" +
+                membersInNewChannel +
+                "\n"
+            );
+          }
         }
       });
     });
