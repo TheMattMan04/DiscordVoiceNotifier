@@ -99,7 +99,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== oldMember.id) {
-            console.log("Notification to: " + member.user.username + "\n");
+            console.log("Sent notification to: " + member.user.username + "\n");
             member.send(
               oldUser +
                 " " +
@@ -133,7 +133,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== newMember.id) {
-            console.log("Notification to: " + member.user.username + "\n");
+            console.log("Sent notification to: " + member.user.username + "\n");
             member.send(
               newUser +
                 " " +
