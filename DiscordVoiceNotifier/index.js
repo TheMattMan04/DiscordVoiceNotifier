@@ -5,6 +5,7 @@ const Discord = require("discord.js");
 const VoiceChannel = require("./models/VoiceChannel");
 const User = require("./models/User");
 const Intent = require("./enums/Intent");
+const NotificationUtil = require("./utils/NotificationUtil");
 
 const intentList = [
   Intent.GUILDS,
@@ -102,54 +103,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== oldMember.id) {
-            console.log("Sent notification to: " + member.user.username + "\n");
-
-            if (membersInOldChannel.length === 0) {
-              member.send(
-                oldUser +
-                  " " +
-                  "left " +
-                  "'" +
-                  oldVoiceChannelName +
-                  "'" +
-                  " " +
-                  "voice channel" +
-                  "\n" +
-                  "\n" +
-                  "People currently in: " +
-                  "'" +
-                  oldVoiceChannelName +
-                  "'" +
-                  "\n" +
-                  "\n" +
-                  "There's no one currently in " +
-                  "'" +
-                  oldVoiceChannelName +
-                  "'" +
-                  "\n"
-              );
-            } else {
-              member.send(
-                oldUser +
-                  " " +
-                  "left " +
-                  "'" +
-                  oldVoiceChannelName +
-                  "'" +
-                  " " +
-                  "voice channel" +
-                  "\n" +
-                  "\n" +
-                  "People currently in: " +
-                  "'" +
-                  oldVoiceChannelName +
-                  "'" +
-                  "\n" +
-                  "\n" +
-                  membersInOldChannel +
-                  "\n"
-              );
-            }
+            NotificationUtil.notifyUserLeft(member, oldUser, oldVoiceChannelName, membersInOldChannel);
           }
         }
       });
@@ -163,28 +117,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== newMember.id) {
-            console.log("Sent notification to: " + member.user.username + "\n");
-            
-            member.send(
-              newUser +
-                " " +
-                "joined " +
-                "'" +
-                newVoiceChannelName +
-                "'" +
-                " " +
-                "voice channel" +
-                "\n" +
-                "\n" +
-                "People currently in: " +
-                "'" +
-                newVoiceChannelName +
-                "'" +
-                "\n" +
-                "\n" +
-                membersInNewChannel +
-                "\n"
-            );
+            NotificationUtil.notifyUserJoined(member, newUser, newVoiceChannelName, membersInNewChannel);
           }
         }
       });
