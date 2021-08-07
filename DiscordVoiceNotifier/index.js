@@ -4,17 +4,20 @@ require("dotenv").config();
 const Discord = require("discord.js");
 const VoiceChannel = require("./models/VoiceChannel");
 const User = require("./models/User");
+const Intent = require("./enums/Intent");
+
+const intentList = [
+  Intent.GUILDS,
+  Intent.GUILD_MEMBERS,
+  Intent.GUILD_MESSAGES,
+  Intent.GUILD_PRESENCES,
+  Intent.GUILD_VOICE_STATES,
+  Intent.DIRECT_MESSAGES
+]
 
 const client = new Discord.Client({
   ws: {
-    intents: [
-      "GUILDS",
-      "GUILD_MESSAGES",
-      "GUILD_MEMBERS",
-      "GUILD_PRESENCES",
-      "DIRECT_MESSAGES",
-      "GUILD_VOICE_STATES",
-    ],
+    intents: intentList
   },
 });
 
