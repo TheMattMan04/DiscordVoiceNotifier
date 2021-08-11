@@ -13,7 +13,7 @@ const intentList = [
   Intent.GUILD_MESSAGES,
   Intent.GUILD_PRESENCES,
   Intent.GUILD_VOICE_STATES,
-  Intent.DIRECT_MESSAGES
+  Intent.DIRECT_MESSAGES,
 ]
 
 const client = new Discord.Client({
@@ -44,7 +44,7 @@ client.once("ready", () => {
 
 client.on("message", async (message) => {
   if (message.content === "!family") {
-    message.reply("IT'S BEEN A LOOOOOONG DAY")
+    message.reply("@everyone" + " "+ "IT'S BEEN A LOOOOOONG DAYYYYYYY!")
   }
 });
 
