@@ -42,6 +42,12 @@ client.once("ready", () => {
   });
 });
 
+client.on("message", async (message) => {
+  if (message.content === "!family") {
+    message.reply("IT'S BEEN A LOOOOOONG DAY")
+  }
+});
+
 client.on("voiceStateUpdate", (oldMember, newMember) => {
   let oldUser = client.users.cache.find(
     (user) => user.id === oldMember.id
