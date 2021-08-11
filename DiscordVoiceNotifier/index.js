@@ -43,7 +43,7 @@ client.once("ready", () => {
 });
 
 client.on("message", async (message) => {
-  if (message.content.toUpperCase === "!family".toUpperCase) {
+  if (message.content === "!family") {
     message.reply("@everyone" + " "+ "IT'S BEEN A LOOOOOONG DAYYYYYYY!")
   }
 });
