@@ -1,7 +1,10 @@
-import {VoiceState} from "discord.js";
+import { VoiceState } from "discord.js";
+import {Services} from "./service";
 
 
-const VoiceChannel = require("./models/VoiceChannel");
+import {VoiceChannel} from "../models/VoiceChannel";
+
+
 
 export class VoiceService {
     voiceChannels = [];
@@ -16,6 +19,11 @@ export class VoiceService {
     }
 
     handleVoiceStateUpdate(oldMember: VoiceState, newMember: VoiceState) {
+        const userService = Services.instance().userService
+        const discordService = Services.instance().discordService
+        const notificationService = Services.instance().notificationService
+        const client = discordService.client()
+
         let oldUser = client.users.cache.find(
             (user) => user.id === oldMember.id
         ).username;
@@ -23,10 +31,10 @@ export class VoiceService {
             (user) => user.id === newMember.id
         ).username;
 
-        let oldVoiceChannel = voiceChannels.find(
+        let oldVoiceChannel = this.voiceChannels.find(
             (voice) => oldMember.channelID === voice.id
         );
-        let newVoiceChannel = voiceChannels.find(
+        let newVoiceChannel = this.voiceChannels.find(
             (voice) => newMember.channelID === voice.id
         );
 
@@ -70,13 +78,13 @@ export class VoiceService {
         if (newMember.channelID === null) {
             client.guilds.cache.forEach((guild) => {
                 guild.members.cache.forEach((member) => {
-                    let memberFound = serverMembers.find(
+                    let memberFound = userService.getServerMembers().find(
                         (serverMember) => serverMember.id === member.user.id
                     );
 
                     if (memberFound !== undefined) {
                         if (memberFound.id !== oldMember.id) {
-                            NotificationUtil.notifyUserLeft(member, oldUser, oldVoiceChannelName, membersInOldChannel);
+                            notificationService.notifyUserLeft(member, oldUser, oldVoiceChannelName, membersInOldChannel);
                         }
                     }
                 });
@@ -84,13 +92,13 @@ export class VoiceService {
         } else if (oldMember.channelID === null) {
             client.guilds.cache.forEach((guild) => {
                 guild.members.cache.forEach((member) => {
-                    let memberFound = serverMembers.find(
+                    let memberFound = userService.getServerMembers().find(
                         (serverMember) => serverMember.id === member.user.id
                     );
 
                     if (memberFound !== undefined) {
                         if (memberFound.id !== newMember.id) {
-                            NotificationUtil.notifyUserJoined(member, newUser, newVoiceChannelName, membersInNewChannel);
+                            notificationService.notifyUserJoined(member, newUser, newVoiceChannelName, membersInNewChannel);
                         }
                     }
                 });

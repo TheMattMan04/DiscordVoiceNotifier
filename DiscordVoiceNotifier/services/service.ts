@@ -1,7 +1,7 @@
 import {VoiceService} from "./voice-service";
 import {DiscordService} from "./discord-service";
 import {UserService} from "./user-service";
-import {User} from "discord.js";
+import {NotificationService} from "../utils/notification-util";
 
 
 export class Services {
@@ -20,10 +20,12 @@ export class Services {
     public voiceService: VoiceService = null;
     public discordService: DiscordService = null;
     public userService: UserService = null;
+    public notificationService: NotificationService = null;
 
     constructor() {
         this.discordService = new DiscordService();
         this.voiceService = new VoiceService();
         this.userService = new UserService()
+        this.notificationService = new NotificationService();
     }
 }
