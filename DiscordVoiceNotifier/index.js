@@ -165,6 +165,7 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
 function login() {
   try {
+    console.log("logging in....")
     client.login(process.env.BOT_TOKEN);
   } catch (e) {
     console.log("Error starting bot.... " + "\n");
