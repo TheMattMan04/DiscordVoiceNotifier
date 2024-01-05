@@ -43,7 +43,7 @@ client.once("ready", () => {
       }
     });
   } catch (e) {
-    console.log("An error occurred..." + '\n');
+    console.log("An error occurred..." + "\n");
     console.log(e);
   }
 });
@@ -163,4 +163,13 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
   }
 });
 
-client.login(process.env.BOT_TOKEN);
+function login() {
+  try {
+    client.login(process.env.BOT_TOKEN);
+  } catch (e) {
+    console.log("Error starting bot.... " + "\n");
+    console.log(e);
+  }
+}
+
+login();
