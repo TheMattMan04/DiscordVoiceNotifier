@@ -26,6 +26,7 @@ let voiceChannels = [];
 let serverMembers = [];
 
 client.once("ready", () => {
+  console.log("testing....");
   console.log("Voice Channel Bot is online" + "\n");
 
   client.guilds.cache.forEach((guild) => {
