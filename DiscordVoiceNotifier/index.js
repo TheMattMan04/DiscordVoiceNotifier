@@ -14,11 +14,11 @@ const intentList = [
   Intent.GUILD_PRESENCES,
   Intent.GUILD_VOICE_STATES,
   Intent.DIRECT_MESSAGES,
-]
+];
 
 const client = new Discord.Client({
   ws: {
-    intents: intentList
+    intents: intentList,
   },
 });
 
@@ -26,26 +26,31 @@ let voiceChannels = [];
 let serverMembers = [];
 
 client.once("ready", () => {
-  console.log("testing....");
-  console.log("Voice Channel Bot is online" + "\n");
+  try {
+    console.log("testing....");
+    console.log("Voice Channel Bot is online" + "\n");
 
-  client.guilds.cache.forEach((guild) => {
-    guild.members.cache.forEach((member) => {
-      if (member.user.bot) return;
-      serverMembers.push(new User(member.user.id, member.user.username));
+    client.guilds.cache.forEach((guild) => {
+      guild.members.cache.forEach((member) => {
+        if (member.user.bot) return;
+        serverMembers.push(new User(member.user.id, member.user.username));
+      });
     });
-  });
 
-  client.channels.cache.forEach((channel) => {
-    if (channel.type === "voice") {
-      voiceChannels.push(new VoiceChannel(channel.id, channel.name));
-    }
-  });
+    client.channels.cache.forEach((channel) => {
+      if (channel.type === "voice") {
+        voiceChannels.push(new VoiceChannel(channel.id, channel.name));
+      }
+    });
+  } catch (e) {
+    console.log("An error occurred..." + '\n');
+    console.log(e);
+  }
 });
 
 client.on("message", async (message) => {
   if (message.content === "!family") {
-    message.reply("@everyone" + " "+ "IT'S BEEN A LOOOOOONG DAYYYYYYY!")
+    message.reply("@everyone" + " " + "IT'S BEEN A LOOOOOONG DAYYYYYYY!");
   }
 });
 
@@ -110,7 +115,12 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== oldMember.id) {
-            NotificationUtil.notifyUserLeft(member, oldUser, oldVoiceChannelName, membersInOldChannel);
+            NotificationUtil.notifyUserLeft(
+              member,
+              oldUser,
+              oldVoiceChannelName,
+              membersInOldChannel
+            );
           }
         }
       });
@@ -124,7 +134,12 @@ client.on("voiceStateUpdate", (oldMember, newMember) => {
 
         if (memberFound !== undefined) {
           if (memberFound.id !== newMember.id) {
-            NotificationUtil.notifyUserJoined(member, newUser, newVoiceChannelName, membersInNewChannel);
+            NotificationUtil.notifyUserJoined(
+              member,
+              newUser,
+              newVoiceChannelName,
+              membersInNewChannel
+            );
           }
         }
       });
