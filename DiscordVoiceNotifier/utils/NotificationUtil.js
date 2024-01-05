@@ -52,7 +52,7 @@ function notifyUserJoined(member, newUser, newVoiceChannelName, membersInNewChan
     member.send(
         newUser +
           " " +
-          "joined " +
+          "is chilling in " +
           "'" +
           newVoiceChannelName +
           "'" +
